@@ -90,6 +90,17 @@
                             </tr>
                         </tbody>
                     </table>
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                          <li class="page-item"  v-bind:class="[{disabled: !pagination.prev_page_url}]">
+                            <a class="page-link" href="#" @click="fetchPaginateData(pagination.prev_page_url)">Previous</a>
+                          </li>
+                          
+                          <li class="page-item" v-bind:class="[{disabled: !pagination.next_page_url}]" >
+                            <a class="page-link" href="#" @click="fetchPaginateData(pagination.next_page_url)">Next</a>
+                          </li>
+                        </ul>
+                      </nav>
                     <modal v-if="showModal" @close="showModal=false">
                         <h3 slot="header">Edit Data</h3>
                         <div slot="body">

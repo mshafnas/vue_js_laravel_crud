@@ -23,3 +23,8 @@ Route::get('/getData', 'DataController@getData');
 Route::post('deleteData/{id}', 'DataController@destroy');
 // route for updating data
 Route::post('editData/{id}', 'DataController@update');
+
+// test route
+Route::get('/test', function(){
+    return view('pages.test');
+});

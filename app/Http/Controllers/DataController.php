@@ -25,7 +25,7 @@ class DataController extends Controller
     public function getData(Request $request)
     {
         //get data from database
-        $data = Data::all();
+        $data = Data::orderBy('id','DESC')->paginate(5);
         return $data;
     }
 

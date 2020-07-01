@@ -20,6 +20,8 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('modal', require('./components/Modal.vue').default);
+Vue.component('test', require('./components/test.vue'));
+
 // Vue.component('modal', {
 //     template: '#modal-template'
 // });
@@ -41,7 +43,9 @@ const app = new Vue({
         edit_id: '',
         edit_name: '',
         edit_age: '',
-        edit_profession: ''
+        edit_profession: '',
+        url: 'getData',
+        pagination: []
     },
     // mounted is used to load the data when page loads
     mounted: function mounted(){
@@ -53,9 +57,25 @@ const app = new Vue({
         getData: function getData(){
             // create instance of the method
             var _this = this;
-            axios.get('/getData').then(function (response){
-                _this.data = response.data;
+            axios.get(this.url).then(function (response){
+                _this.data = response.data.data;
+                _this.makePagination(response.data)
             });
+        },
+        // method for pagination
+        makePagination: function makePagination(data){
+            let pagination = {
+                current_page: data.current_page,
+                last_page: data.last_page,
+                next_page_url: data.next_page_url,
+                prev_page_url: data.prev_page_url
+            }
+            this.pagination = pagination;
+        },
+        // get paginate data
+        fetchPaginateData(url){
+            this.url = url;
+            this.getData();
         },
         // method for add data
         createData: function createData(){
